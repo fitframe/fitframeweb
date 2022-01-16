@@ -5,6 +5,8 @@ let video;
 let canvas;
 let ctx;
 
+
+
 async function setup() {
     // Grab elements, create settings, etc.
     video = document.getElementById('video');
@@ -24,6 +26,7 @@ async function setup() {
 
     requestAnimationFrame(draw);
 }
+
 
 setup();
 
@@ -49,7 +52,7 @@ function draw() {
     requestAnimationFrame(draw);
 
 
-    ctx.drawImage(video, 0, 0, 640, 480);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     // We can call both functions to draw all keypoints and the skeletons
 
 
@@ -57,8 +60,21 @@ function draw() {
     if (poses.length > 0) {
         const pose = poses[0].pose;
 
-        // Create a pink ellipse for the nose
         const leftShoulder = pose.leftShoulder;
+        const rightShoulder = pose.rightShoulder;
+        const rightElbow = pose.rightElbow;
+        const leftWrist = pose.leftWrist;
+        const leftElbow = pose.leftElbow;
+        const rightWrist = pose.rightWrist;
+        const leftAnkle = pose.leftAnkle;
+        const leftHip = pose.leftHip;
+        const leftKnee = pose.leftKnee;
+        const rightHip = pose.rightHip;
+        const rightKnee = pose.rightKnee;
+        const rightAnkle = pose.rightAnkle;
+
+        // Create a pink ellipse for the nose
+
         if(angle(leftHip,leftShoulder,leftElbow)>0){
             ctx.fillStyle = 'rgb(0,255,0)'
             console.log("Positive")
@@ -74,7 +90,7 @@ function draw() {
         ctx.stroke();
 
         // Create a yellow ellipse for the right eye
-        const rightShoulder = pose.rightShoulder;
+
         if(angle(rightHip,rightShoulder,rightElbow)>0){
             ctx.fillStyle = 'rgb(0,255,0)'
             console.log("Positive")
@@ -89,7 +105,7 @@ function draw() {
         ctx.fill();
         ctx.stroke();
 
-        const rightElbow = pose.rightElbow;
+
         if(angle(rightShoulder,rightElbow,rightWrist)>0){
             ctx.fillStyle = 'rgb(0,255,0)'
             console.log("Positive")
@@ -104,15 +120,15 @@ function draw() {
         ctx.fill();
         ctx.stroke();
 
-        const leftWrist = pose.leftWrist;
+        ctx.fillStyle = 'rgb(0,0,255)'
         ctx.beginPath();
         ctx.arc(leftWrist.x, leftWrist.y, 10, 0, 2 * Math.PI);
         ctx.fill();
         ctx.stroke();
 
-        const leftElbow = pose.leftElbow;
+
         if(angle(leftWrist,leftElbow,leftShoulder)>0){
-            ctx.fillStyle = 'rgb(255,0,0)';
+            ctx.fillStyle = 'rgb(0,255,0)';
             console.log("Positive")
         }
         else
@@ -125,28 +141,28 @@ function draw() {
         ctx.fill();
         ctx.stroke();
 
-        const rightWrist = pose.rightWrist;
-        ctx.fillStyle = 'rgb(213, 0, 143)';
+
+        ctx.fillStyle = 'rgb(0,0,255)';
         ctx.beginPath();
         ctx.arc(rightWrist.x, rightWrist.y, 10, 0, 2 * Math.PI);
         ctx.fill();
         ctx.stroke();
 
-        const leftAnkle = pose.leftAnkle;
-        ctx.fillStyle = 'rgb(213, 0, 143)';
+
+        ctx.fillStyle = 'rgb(0,0,255)';
         ctx.beginPath();
         ctx.arc(leftAnkle.x, leftAnkle.y, 10, 0, 2 * Math.PI);
         ctx.fill();
         ctx.stroke();
 
-        const leftHip = pose.leftHip;
+
         if(angle(leftKnee,leftHip,leftShoulder)>0){
-            ctx.fillStyle = 'rgb(213, 0, 143)';
+            ctx.fillStyle = 'rgb(0,255,0)';
             console.log(angle(leftKnee,leftHip,leftShoulder))
         }
         else
         {
-            ctx.fillStyle = 'rgb(255, 255, 255)';
+            ctx.fillStyle = 'rgb(255,0,0)';
             console.log(angle(leftKnee,leftHip,leftShoulder))
         }
         ctx.beginPath();
@@ -154,38 +170,37 @@ function draw() {
         ctx.fill();
         ctx.stroke();
 
-        const leftKnee = pose.leftKnee;
+
         if(angle(leftAnkle,leftKnee,leftHip)>0){
-            ctx.fillStyle = 'rgb(213, 0, 143)';
+            ctx.fillStyle = 'rgb(0,255,0)';
             console.log(angle(leftAnkle,leftKnee,leftHip))
 
         }
         else
         {
-            ctx.fillStyle = 'rgb(255, 255, 255)';
+            ctx.fillStyle = 'rgb(255,0,0)';
             console.log(angle(leftAnkle,leftKnee,leftHip))
         }
-        ctx.fillStyle = 'rgb(213, 0, 143)';
         ctx.beginPath();
         ctx.arc(leftKnee.x, leftKnee.y, 10, 0, 2 * Math.PI);
         ctx.fill();
         ctx.stroke();
 
-        const rightAnkle = pose.rightAnkle;
-        ctx.fillStyle = 'rgb(213, 0, 143)';
+
+        ctx.fillStyle = 'rgb(0, 0, 255)';
         ctx.beginPath();
         ctx.arc(rightAnkle.x, rightAnkle.y, 10, 0, 2 * Math.PI);
         ctx.fill();
         ctx.stroke();
 
-        const rightHip = pose.rightHip;
+
         if(angle(rightKnee,rightHip,rightShoulder)>0){
-            ctx.fillStyle = 'rgb(213, 0, 143)';
+            ctx.fillStyle = 'rgb(255,0,0)';
             console.log(angle(rightKnee,rightHip,rightShoulder))
         }
         else
         {
-            ctx.fillStyle = 'rgb(255, 255, 255)';
+            ctx.fillStyle = 'rgb(0,255,0)';
             console.log(angle(rightKnee,rightHip,rightShoulder))
         }
         ctx.beginPath();
@@ -193,17 +208,16 @@ function draw() {
         ctx.fill();
         ctx.stroke();
 
-        const rightKnee = pose.rightKnee;
+
         if(angle(rightAnkle,rightKnee,rightHip)>0){
-            ctx.fillStyle = 'rgb(213, 0, 143)';
+            ctx.fillStyle = 'rgb(255,0,0)';
             console.log(angle(rightAnkle,rightKnee,rightHip))
         }
         else
         {
-            ctx.fillStyle = 'rgb(255, 255, 255)';
+            ctx.fillStyle = 'rgb(0,255,0)';
             console.log(angle(rightAnkle,rightKnee,rightHip))
         }
-        ctx.fillStyle = 'rgb(213, 0, 143)';
         ctx.beginPath();
         ctx.arc(rightKnee.x, rightKnee.y, 10, 0, 2 * Math.PI);
         ctx.fill();
